@@ -15,7 +15,7 @@ router.on('/').renderInertia('home').use(middleware.guest())
 
 router
   .resource('users', '#controllers/#controllers/users_controller')
-  .only(['destroy', 'index', 'store', 'update'])
+  .only(['create', 'store', 'edit', 'update'])
 
 // Authentication routes (for guests only)
 router

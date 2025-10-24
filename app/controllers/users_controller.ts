@@ -4,9 +4,9 @@ import type { HttpContext } from '@adonisjs/core/http'
 
 export default class UsersController {
   /**
-   * Display a list of resource
+   * Display form to create a new record
    */
-  async index({}: HttpContext) {}
+  async create({}: HttpContext) {}
 
   /**
    * Handle form submission for the create action
@@ -19,12 +19,14 @@ export default class UsersController {
   }
 
   /**
-   * Handle form submission for the edit action
+   * Edit individual record
    */
-  async update({ params, request }: HttpContext) {}
+  async edit({ params }: HttpContext) {}
 
   /**
-   * Delete record
+   * Handle form submission for the edit action
    */
-  async destroy({ params }: HttpContext) {}
+  async update({ params, request }: HttpContext) {
+    // TODO: Can only update your own password
+  }
 }
