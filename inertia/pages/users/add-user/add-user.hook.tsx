@@ -1,26 +1,26 @@
 import { useState, useCallback } from 'react'
 import { router } from '@inertiajs/react'
-import { LoginPageViewProps } from './login.view'
+import { AddUserPageViewProps } from './add-user.view'
 
-interface LoginFormData extends Record<string, string> {
+interface AddUserFormData extends Record<string, string> {
   username: string
   password: string
 }
 
-interface UseLoginPageProps {
+interface UseAddUserPageProps {
   errors: Record<string, string>
-  values: Partial<LoginFormData>
+  values: Partial<AddUserFormData>
 }
 
-export function useLoginPage({ errors, values }: UseLoginPageProps): LoginPageViewProps {
-  const [formData, setFormData] = useState<LoginFormData>({
+export function useAddUserPage({ errors, values }: UseAddUserPageProps): AddUserPageViewProps {
+  const [formData, setFormData] = useState<AddUserFormData>({
     username: values.username_input || '',
     password: values.password || '',
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const updateField = useCallback((field: keyof LoginFormData, value: string) => {
+  const updateField = useCallback((field: keyof AddUserFormData, value: string) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
@@ -35,7 +35,7 @@ export function useLoginPage({ errors, values }: UseLoginPageProps): LoginPageVi
 
       setIsSubmitting(true)
 
-      router.post('/login', formData, {
+      router.post('/users', formData, {
         preserveScroll: true,
         onFinish: () => setIsSubmitting(false),
       })

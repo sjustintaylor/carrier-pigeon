@@ -13,7 +13,7 @@ interface LoginPageProps extends PageProps {
 export default function LoginPage({ errors = {}, flash }: LoginPageProps) {
   const props = useLoginPage({
     errors,
-    values: { email: '', password: '' },
+    values: { username: '', password: '' },
   })
   return <LoginView {...{ ...props, flash }} />
 }

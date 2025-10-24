@@ -1,0 +1,69 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  install:
+    cmds:
+      - pnpm install
+
+  start:
+    desc: 'Start the production server'
+    cmds:
+      - node bin/server.js
+
+  build:
+    desc: 'Build the application'
+    cmds:
+      - node ace build
+
+  dev:
+    desc: 'Start development server with HMR'
+    cmds:
+      - node ace serve --hmr
+
+  test:
+    desc: 'Run tests'
+    cmds:
+      - node ace test
+
+  lint:
+    desc: 'Run ESLint'
+    cmds:
+      - pnpm eslint . --fix
+
+  format:
+    desc: 'Format code with Prettier'
+    cmds:
+      - pnpm prettier --write .
+
+  typecheck:
+    desc: 'Run TypeScript type checking'
+    cmds:
+      - pnpm tsc --noEmit
+
+  typecheck:inertia:
+    desc: 'Run TypeScript type checking'
+    cmds:
+      - pnpm tsc --noEmit --project inertia/tsconfig.json
+  list:routes:
+    cmds:
+      - node ace list:routes
+  setup:
+    desc: 'Set the project up for local development'
+    cmds:
+      - task: install
+      - cp .env.example .env
+      - node ace generate:key
+      - task: db:migrate
+
+  db:migrate:
+    desc: 'Generate database migration'
+    cmds:
+      - node ace migration:run
+
+  db:refresh:
+    desc: 'Refresh the database'
+    cmds:
+      - node ace migration:refresh
+      - node ace db:seed

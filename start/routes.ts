@@ -17,9 +17,7 @@ router.on('/').renderInertia('home').use(middleware.guest())
 router
   .group(() => {
     router.get('/login', '#controllers/authentication_controller.show').as('login')
-    router
-      .post('/login', '#controllers/common/auth/authentication_controller.update')
-      .use(authThrottle)
+    router.post('/login', '#controllers/authentication_controller.update').use(authThrottle)
   })
   .use(middleware.guest())
 
@@ -28,5 +26,9 @@ router
   .group(() => {
     router.post('/logout', '#controllers/authentication_controller.destroy').as('logout')
     router.on('/files').renderInertia('files').as('consumer')
+    router
+      .resource('users', '#controllers/users_controller')
+      .only(['create', 'store', 'edit', 'update'])
+      .as('users')
   })
   .use(middleware.auth())
