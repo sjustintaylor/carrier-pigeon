@@ -13,6 +13,8 @@ import { authThrottle } from './limiter.js'
 
 router.on('/').renderInertia('home').use(middleware.guest())
 
+router.post('/users', '#controllers/#controllers/users_controller.store')
+
 // Authentication routes (for guests only)
 router
   .group(() => {
