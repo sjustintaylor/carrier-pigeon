@@ -1,5 +1,7 @@
 import User from '#models/user'
+import { createUserValidator } from '#validators/create_user'
 import { loginValidator } from '#validators/login'
+import { updatePasswordValidator } from '#validators/update_password'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class UsersController {
@@ -19,7 +21,7 @@ export default class UsersController {
    * Handle form submission for the create action
    */
   async store({ request, session }: HttpContext) {
-    const { username, password } = await request.validateUsing(loginValidator)
+    const { username, password } = await request.validateUsing(createUserValidator)
 
     await User.create({ username, password })
     session.flash('success', 'Account created successfully!')
@@ -45,7 +47,17 @@ export default class UsersController {
   /**
    * Handle form submission for the edit action
    */
-  async update({ params, request }: HttpContext) {
-    // TODO: Can only update your own password
+  async update({ request, auth, session, response }: HttpContext) {
+    const user = await auth.authenticate()
+    const { password } = await request.validateUsing(updatePasswordValidator)
+
+    await User.updateOrCreate({ id: user.id }, { password })
+
+    session.flash(
+      'success',
+      'Your password has been successfully updated. You can now log in with your new password.'
+    )
+    await auth.use('web').logout()
+    return response.redirect().toRoute('login')
   }
 }
