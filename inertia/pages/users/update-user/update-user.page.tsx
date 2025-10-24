@@ -1,6 +1,7 @@
 import { PageProps } from '@inertiajs/core'
 import { useUpdateUserPage } from './update-user.hook'
 import { UpdateUserView } from './update-user.view'
+import { AuthLayout } from '~/lib/layouts/auth.layout'
 
 interface UpdateUserPageProps extends PageProps {
   errors?: Record<string, string>
@@ -14,10 +15,19 @@ interface UpdateUserPageProps extends PageProps {
   }
 }
 
-export default function UpdateUserPage({ errors = {}, flash, values }: UpdateUserPageProps) {
+export default function UpdateUserPage({
+  errors = {},
+  flash,
+  values,
+  userId,
+}: UpdateUserPageProps) {
   const props = useUpdateUserPage({
     errors,
     values: { ...values, password: '' },
   })
-  return <UpdateUserView {...{ ...props, flash }} />
+  return (
+    <AuthLayout>
+      <UpdateUserView {...{ ...props, flash }} />
+    </AuthLayout>
+  )
 }

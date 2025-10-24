@@ -46,7 +46,9 @@ tasks:
     desc: 'Run TypeScript type checking'
     cmds:
       - pnpm tsc --noEmit --project inertia/tsconfig.json
-
+  list:routes:
+    cmds:
+      - node ace list:routes
   setup:
     desc: 'Set the project up for local development'
     cmds:

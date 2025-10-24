@@ -1,8 +1,9 @@
 import { PageProps } from '@inertiajs/core'
 import { useAddUserPage } from './add-user.hook'
 import { AddUserView } from './add-user.view'
+import { AuthLayout } from '~/lib/layouts/auth.layout'
 
-interface AddUserPageProps extends PageProps {
+interface AddUserPageProps extends PageProps, AuthPageProps {
   errors?: Record<string, string>
   flash?: {
     success?: string
@@ -10,10 +11,14 @@ interface AddUserPageProps extends PageProps {
   }
 }
 
-export default function AddUserPage({ errors = {}, flash }: AddUserPageProps) {
+export default function AddUserPage({ errors = {}, flash, userId }: AddUserPageProps) {
   const props = useAddUserPage({
     errors,
     values: { username: '', password: '' },
   })
-  return <AddUserView {...{ ...props, flash }} />
+  return (
+    <AuthLayout>
+      <AddUserView {...{ ...props, flash }} />
+    </AuthLayout>
+  )
 }

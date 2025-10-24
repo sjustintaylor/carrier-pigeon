@@ -27,7 +27,8 @@ router
     router.post('/logout', '#controllers/authentication_controller.destroy').as('logout')
     router.on('/files').renderInertia('files').as('consumer')
     router
-      .resource('users', '#controllers/#controllers/users_controller')
+      .resource('users', '#controllers/users_controller')
       .only(['create', 'store', 'edit', 'update'])
+      .as('users')
   })
   .use(middleware.auth())

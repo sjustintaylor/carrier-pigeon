@@ -6,7 +6,14 @@ export default class UsersController {
   /**
    * Display form to create a new record
    */
-  async create({}: HttpContext) {}
+  async create({ inertia, session }: HttpContext) {
+    return inertia.render('users/add-user/add-user.page', {
+      flash: {
+        success: session.flashMessages.get('success'),
+        error: session.flashMessages.get('error'),
+      },
+    })
+  }
 
   /**
    * Handle form submission for the create action
@@ -21,7 +28,19 @@ export default class UsersController {
   /**
    * Edit individual record
    */
-  async edit({ params, inertia, session }: HttpContext) {}
+  async edit({ auth, inertia, session }: HttpContext) {
+    const user = await auth.authenticate()
+    return inertia.render('users/update-user/update-user.page', {
+      flash: {
+        success: session.flashMessages.get('success'),
+        error: session.flashMessages.get('error'),
+      },
+      values: {
+        id: user.id,
+        username: user.username,
+      },
+    })
+  }
 
   /**
    * Handle form submission for the edit action

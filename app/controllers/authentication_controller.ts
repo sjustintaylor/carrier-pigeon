@@ -25,7 +25,7 @@ export default class AuthenticationController {
     await auth.use('web').login(user)
 
     session.flash('success', 'Welcome back!')
-    return response.redirect().toRoute('home')
+    return response.redirect().toRoute('users.create')
   }
 
   /**

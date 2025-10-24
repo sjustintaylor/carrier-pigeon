@@ -27,7 +27,7 @@ export function UpdateUserView({
 }: UpdateUserPageViewProps) {
   return (
     <>
-      <Head title="Sign in" />
+      <Head title="Change your password" />
 
       {flash?.error && (
         <div className="mb-6">
@@ -42,6 +42,7 @@ export function UpdateUserView({
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6 max-w-96 mx-auto mt-24">
+        <h1 className="font-bold">Change your own password</h1>
         <div className="space-y-2">
           <Label htmlFor="username_input">Username</Label>
           <input
@@ -49,8 +50,7 @@ export function UpdateUserView({
             type="text"
             className="input"
             value={formData.username}
-            onChange={(e) => updateField('username', e.target.value)}
-            placeholder="Enter your email"
+            placeholder="Enter your username"
             required
             autoComplete="username"
             aria-invalid={!!errors.username}
@@ -75,7 +75,7 @@ export function UpdateUserView({
         </div>
 
         <button type="submit" className="btn" disabled={isSubmitting}>
-          {isSubmitting ? 'Signing In...' : 'Sign In'}
+          {isSubmitting ? 'Updating password...' : 'Update password'}
         </button>
       </form>
     </>
