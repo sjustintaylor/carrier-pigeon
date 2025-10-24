@@ -27,7 +27,7 @@ export function LoginView({
 }: LoginPageViewProps) {
   return (
     <>
-      <Head title="Log in" />
+      <Head title="Sign in" />
 
       {flash?.error && (
         <div className="mb-6">
@@ -41,7 +41,7 @@ export function LoginView({
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6 max-w-96 mx-auto mt-24">
         <div className="space-y-2">
           <Label htmlFor="username_input">Username</Label>
           <input
@@ -59,18 +59,11 @@ export function LoginView({
         </div>
 
         <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <Label htmlFor="password">Password</Label>
-            <Link
-              href="/password/reset"
-              className="text-sm text-neutral-600 hover:text-neutral-900"
-            >
-              Forgot password?
-            </Link>
-          </div>
+          <Label htmlFor="password">Password</Label>
           <input
             id="password"
             type="password"
+            className="input"
             value={formData.password}
             onChange={(e) => updateField('password', e.target.value)}
             aria-invalid={!!errors.password}
@@ -81,9 +74,9 @@ export function LoginView({
           {errors.password && <Alert intent="ERROR" message={errors.password} />}
         </div>
 
-        <Button type="submit" className="w-full" loading={isSubmitting} disabled={isSubmitting}>
+        <button type="submit" className="btn" disabled={isSubmitting}>
           {isSubmitting ? 'Signing In...' : 'Sign In'}
-        </Button>
+        </button>
       </form>
     </>
   )

@@ -7,7 +7,7 @@ export default class AuthenticationController {
    * Show login page
    */
   async show({ inertia, session }: HttpContext) {
-    return inertia.render('auth/login/login.page', {
+    return inertia.render('login/login.page', {
       flash: {
         success: session.flashMessages.get('success'),
         error: session.flashMessages.get('error'),
