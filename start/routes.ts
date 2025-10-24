@@ -17,9 +17,7 @@ router.on('/').renderInertia('home').use(middleware.guest())
 router
   .group(() => {
     router.get('/login', '#controllers/authentication_controller.show').as('login')
-    router
-      .post('/login', '#controllers/common/auth/authentication_controller.update')
-      .use(authThrottle)
+    router.post('/login', '#controllers/authentication_controller.update').use(authThrottle)
   })
   .use(middleware.guest())
 

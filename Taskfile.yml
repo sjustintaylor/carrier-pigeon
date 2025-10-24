@@ -59,7 +59,9 @@ tasks:
     desc: 'Generate database migration'
     cmds:
       - node ace migration:run
+
   db:refresh:
     desc: 'Refresh the database'
     cmds:
       - node ace migration:refresh
+      - node ace db:seed
