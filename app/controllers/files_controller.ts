@@ -2,7 +2,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 
 export default class FilesController {
   /**
-   * Display a list of resource
+   * Display a list of files
    */
   async index({}: HttpContext) {}
 
