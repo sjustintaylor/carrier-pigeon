@@ -3,7 +3,7 @@ import { router } from '@inertiajs/react'
 import { LoginPageViewProps } from './login.view'
 
 interface LoginFormData extends Record<string, string> {
-  email: string
+  username: string
   password: string
 }
 
@@ -14,7 +14,7 @@ interface UseLoginPageProps {
 
 export function useLoginPage({ errors, values }: UseLoginPageProps): LoginPageViewProps {
   const [formData, setFormData] = useState<LoginFormData>({
-    email: values.email_input || '',
+    username: values.username_input || '',
     password: values.password || '',
   })
 
