@@ -27,7 +27,7 @@ export function AddUserView({
 }: AddUserPageViewProps) {
   return (
     <>
-      <Head title="Sign in" />
+      <Head title="Create user" />
 
       {flash?.error && (
         <div className="mb-6">
@@ -75,7 +75,7 @@ export function AddUserView({
         </div>
 
         <button type="submit" className="btn" disabled={isSubmitting}>
-          {isSubmitting ? 'Signing In...' : 'Sign In'}
+          {isSubmitting ? 'Creating user...' : 'Create user'}
         </button>
       </form>
     </>

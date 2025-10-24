@@ -8,12 +8,16 @@ interface UpdateUserPageProps extends PageProps {
     success?: string
     error?: string
   }
+  values: {
+    id: string
+    username: string
+  }
 }
 
-export default function UpdateUserPage({ errors = {}, flash }: UpdateUserPageProps) {
+export default function UpdateUserPage({ errors = {}, flash, values }: UpdateUserPageProps) {
   const props = useUpdateUserPage({
     errors,
-    values: { username: '', password: '' },
+    values: { ...values, password: '' },
   })
   return <UpdateUserView {...{ ...props, flash }} />
 }
