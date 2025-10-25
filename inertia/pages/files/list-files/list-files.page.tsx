@@ -5,7 +5,6 @@ import { AuthLayout } from '~/lib/layouts/auth.layout'
 import { FileRecord } from './list-files.types'
 
 interface ListFilesPageProps extends PageProps {
-  errors?: Record<string, string>
   flash?: {
     success?: string
     error?: string
@@ -13,13 +12,11 @@ interface ListFilesPageProps extends PageProps {
   values: FileRecord[]
 }
 
-export default function ListFilesPage({ errors = {}, flash }: ListFilesPageProps) {
-  const props = useListFilesPage({
-    errors,
-  })
+export default function ListFilesPage({ flash, values }: ListFilesPageProps) {
+  const props = useListFilesPage()
   return (
     <AuthLayout flash={flash}>
-      <ListFilesView {...{ ...props }} />
+      <ListFilesView {...{ ...props, values }} />
     </AuthLayout>
   )
 }

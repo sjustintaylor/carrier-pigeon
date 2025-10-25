@@ -2,8 +2,8 @@ import { Head, Link } from '@inertiajs/react'
 import { FileRecord } from './list-files.types'
 
 export interface ListFilesPageViewProps {
-  errors: Record<string, string>
   values: FileRecord[]
+  isDeleting: boolean
   handleDelete: (id: number) => void
 }
 
@@ -26,7 +26,7 @@ const DeleteIcon = () => {
   )
 }
 
-export function ListFilesView({ errors, values }: ListFilesPageViewProps) {
+export function ListFilesView({ values, handleDelete, isDeleting }: ListFilesPageViewProps) {
   return (
     <>
       <Head title="List your files" />
@@ -34,7 +34,7 @@ export function ListFilesView({ errors, values }: ListFilesPageViewProps) {
         <header>
           <h2>Your files</h2>
         </header>
-        <section className="">
+        <section>
           <ul>
             {values.map((el) => {
               return (
@@ -45,7 +45,11 @@ export function ListFilesView({ errors, values }: ListFilesPageViewProps) {
                       Expires on: {el.expiresOn.toDateString()}
                     </span>
                   </div>
-                  <button className="btn-sm-icon-destructive">
+                  <button
+                    className="btn-sm-icon-destructive"
+                    onClick={() => handleDelete(el.id)}
+                    disabled={isDeleting}
+                  >
                     <DeleteIcon />
                   </button>
                 </li>
