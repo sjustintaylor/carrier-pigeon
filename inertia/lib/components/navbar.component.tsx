@@ -3,7 +3,7 @@ import { handleLogout } from '../utils/handle_logout'
 
 export const Navbar = () => {
   return (
-    <div className="w-full mt-8">
+    <div className="w-full">
       <ul className="flex space-x-4 mx-auto max-w-max items-center">
         <li>
           <Link href="/users/create" className="text-blue-800 hover:underline">

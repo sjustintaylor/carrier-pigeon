@@ -30,36 +30,31 @@ export function ListFilesView({ values, handleDelete, isDeleting }: ListFilesPag
   return (
     <>
       <Head title="List your files" />
-      <div className="card mx-auto mt-32 max-w-xl">
-        <header>
-          <h2>Your files</h2>
-        </header>
-        <section>
-          <ul>
-            {values.map((el) => {
-              return (
-                <li key={el.id} className="flex items-center justify-between">
-                  <div className="flex-col items-start justify-start">
-                    <Link href={`/downloads/${el.friendlyIdentifier}`}>
-                      {el.friendlyIdentifier}
-                    </Link>
-                    <span className="italic text-sm">
-                      Expires on: {el.expiresOn.toDateString()}
-                    </span>
-                  </div>
-                  <button
-                    className="btn-sm-icon-destructive"
-                    onClick={() => handleDelete(el.id)}
-                    disabled={isDeleting}
-                  >
-                    <DeleteIcon />
-                  </button>
-                </li>
-              )
-            })}
-          </ul>
-        </section>
-      </div>
+
+      <header>
+        <h2>Your files</h2>
+      </header>
+      <section>
+        <ul>
+          {values.map((el) => {
+            return (
+              <li key={el.id} className="flex items-center justify-between">
+                <div className="flex-col items-start justify-start">
+                  <Link href={`/downloads/${el.friendlyIdentifier}`}>{el.friendlyIdentifier}</Link>
+                  <span className="italic text-sm">Expires on: {el.expiresOn.toDateString()}</span>
+                </div>
+                <button
+                  className="btn-sm-icon-destructive"
+                  onClick={() => handleDelete(el.id)}
+                  disabled={isDeleting}
+                >
+                  <DeleteIcon />
+                </button>
+              </li>
+            )
+          })}
+        </ul>
+      </section>
     </>
   )
 }

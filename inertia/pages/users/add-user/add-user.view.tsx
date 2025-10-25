@@ -24,7 +24,7 @@ export function AddUserView({
     <>
       <Head title="Create user" />
 
-      <form onSubmit={handleSubmit} className="space-y-6 max-w-96 mx-auto mt-24">
+      <form onSubmit={handleSubmit} className="space-y-6 max-w-96 mx-auto">
         <h1 className="font-bold">Create a user account</h1>
         <div className="space-y-2">
           <Label htmlFor="username_input">Username</Label>

@@ -23,7 +23,7 @@ export function useUploadFilePage(): UploadFilePageViewProps {
     formData.append('file', file)
 
     try {
-      
+      // TODO: Get an upload URL
       ky.post('', {
         body: formData,
         onDownloadProgress: (progress) => {
@@ -40,6 +40,7 @@ export function useUploadFilePage(): UploadFilePageViewProps {
   return {
     file,
     error,
+    progress,
     isSubmitting,
     updateFile,
     handleSubmit,
