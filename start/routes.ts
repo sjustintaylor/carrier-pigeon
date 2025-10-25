@@ -13,6 +13,8 @@ import { authThrottle } from './limiter.js'
 
 router.on('/').renderInertia('home').use(middleware.guest())
 
+router.get('/downloads/:id', '#controllers/files_controller.show').as('download')
+
 // Authentication routes (for guests only)
 router
   .group(() => {
@@ -25,7 +27,9 @@ router
 router
   .group(() => {
     router.post('/logout', '#controllers/authentication_controller.destroy').as('logout')
-    router.on('/files').renderInertia('files').as('consumer')
+    router
+      .resource('files', '#controllers/files_controller')
+      .only(['index', 'create', 'store', 'destroy'])
     router
       .resource('users', '#controllers/users_controller')
       .only(['create', 'store', 'edit', 'update'])

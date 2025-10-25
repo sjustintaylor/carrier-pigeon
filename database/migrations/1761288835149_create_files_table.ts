@@ -15,6 +15,7 @@ export default class extends BaseSchema {
 
       table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
       table.index(['user_id'])
+      table.index(['storage_identifier'])
     })
   }
 

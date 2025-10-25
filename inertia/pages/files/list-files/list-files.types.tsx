@@ -1,1 +1,1 @@
-export type FileRecord = { id: number; url: string; friendlyIdentifier: string; expiresOn: Date }
+export type FileRecord = { id: number; friendlyIdentifier: string; expiresOn: Date }

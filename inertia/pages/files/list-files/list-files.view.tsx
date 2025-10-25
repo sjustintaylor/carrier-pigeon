@@ -40,7 +40,9 @@ export function ListFilesView({ values, handleDelete, isDeleting }: ListFilesPag
               return (
                 <li key={el.id} className="flex items-center justify-between">
                   <div className="flex-col items-start justify-start">
-                    <Link href={el.url}>{el.friendlyIdentifier}</Link>
+                    <Link href={`/downloads/${el.friendlyIdentifier}`}>
+                      {el.friendlyIdentifier}
+                    </Link>
                     <span className="italic text-sm">
                       Expires on: {el.expiresOn.toDateString()}
                     </span>
