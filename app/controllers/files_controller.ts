@@ -3,6 +3,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 import drive from '@adonisjs/drive/services/main'
 import { getFriendlyId } from '../utils/get_friendly_id.js'
 import env from '#start/env'
+import FileRecord from '#models/file_record'
 
 const disk = drive.use()
 
@@ -28,13 +29,18 @@ export default class FilesController {
    * Handle form submission for the create action
    */
   async store({ request, response, auth }: HttpContext) {
-    // TODO: Return a presigned upload url for the file
     const user = await auth.authenticate()
     const { contentType, filename } = await request.validateUsing(fileUploadValidator)
-    const identifier = getFriendlyId()
+    const storageIdentifier = getFriendlyId()
+    await FileRecord.create({
+      contentType,
+      filename,
+      storageIdentifier,
+      userId: user.id,
+    })
 
     return response.json({
-      url: disk.getSignedUploadUrl(identifier, {
+      url: disk.getSignedUploadUrl(storageIdentifier, {
         contentType,
         expiresIn: env.get('FILE_EXPIRY_SECONDS'),
       }),
