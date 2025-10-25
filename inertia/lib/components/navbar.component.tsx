@@ -1,9 +1,10 @@
 import { Link } from '@inertiajs/react'
+import { handleLogout } from '../utils/logout'
 
 export const Navbar = () => {
   return (
     <div className="w-full mt-8">
-      <ul className="flex space-x-4 mx-auto max-w-max">
+      <ul className="flex space-x-4 mx-auto max-w-max items-center">
         <li>
           <Link href="/users/create" className="text-blue-800 hover:underline">
             Create a new user
@@ -18,6 +19,14 @@ export const Navbar = () => {
           <Link href="/files" className="text-blue-800 hover:underline">
             Upload a file
           </Link>
+        </li>
+        <li>
+          <button
+            onClick={handleLogout}
+            className="btn-ghost hover:underline text-base text-red-800"
+          >
+            Logout
+          </button>
         </li>
       </ul>
     </div>

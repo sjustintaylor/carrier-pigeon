@@ -12,10 +12,6 @@ export interface AddUserPageViewProps {
   handleSubmit: (e: React.FormEvent) => void
   isSubmitting: boolean
   errors: Record<string, string>
-  flash?: {
-    success?: string
-    error?: string
-  }
 }
 
 export function AddUserView({
@@ -24,23 +20,10 @@ export function AddUserView({
   handleSubmit,
   isSubmitting,
   errors,
-  flash,
 }: AddUserPageViewProps) {
   return (
     <>
       <Head title="Create user" />
-
-      {flash?.error && (
-        <div className="mb-6">
-          <Alert intent="ERROR" title="" message={flash.error} />
-        </div>
-      )}
-
-      {flash?.success && (
-        <div className="mb-6">
-          <Alert intent="SUCCESS" title="" message={flash.success} />
-        </div>
-      )}
 
       <form onSubmit={handleSubmit} className="space-y-6 max-w-96 mx-auto mt-24">
         <h1 className="font-bold">Create a user account</h1>

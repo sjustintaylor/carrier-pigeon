@@ -15,18 +15,13 @@ interface UpdateUserPageProps extends PageProps {
   }
 }
 
-export default function UpdateUserPage({
-  errors = {},
-  flash,
-  values,
-  userId,
-}: UpdateUserPageProps) {
+export default function UpdateUserPage({ errors = {}, flash, values }: UpdateUserPageProps) {
   const props = useUpdateUserPage({
     errors,
     values: { ...values, password: '' },
   })
   return (
-    <AuthLayout>
+    <AuthLayout flash={flash}>
       <UpdateUserView {...{ ...props, flash }} />
     </AuthLayout>
   )

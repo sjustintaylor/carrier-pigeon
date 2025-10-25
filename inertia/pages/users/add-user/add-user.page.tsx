@@ -3,7 +3,7 @@ import { useAddUserPage } from './add-user.hook'
 import { AddUserView } from './add-user.view'
 import { AuthLayout } from '~/lib/layouts/auth.layout'
 
-interface AddUserPageProps extends PageProps, AuthPageProps {
+interface AddUserPageProps extends PageProps {
   errors?: Record<string, string>
   flash?: {
     success?: string
@@ -11,14 +11,14 @@ interface AddUserPageProps extends PageProps, AuthPageProps {
   }
 }
 
-export default function AddUserPage({ errors = {}, flash, userId }: AddUserPageProps) {
+export default function AddUserPage({ errors = {}, flash }: AddUserPageProps) {
   const props = useAddUserPage({
     errors,
     values: { username: '', password: '' },
   })
   return (
-    <AuthLayout>
-      <AddUserView {...{ ...props, flash }} />
+    <AuthLayout flash={flash}>
+      <AddUserView {...{ ...props }} />
     </AuthLayout>
   )
 }

@@ -3,6 +3,6 @@ import { BaseSeeder } from '@adonisjs/lucid/seeders'
 
 export default class extends BaseSeeder {
   async run() {
-    await User.create({ username: 'hugecocksmurf', password: 'Password8&' })
+    await User.create({ username: 'adminsmurf', password: 'Password8&' })
   }
 }
