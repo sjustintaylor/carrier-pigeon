@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react'
-import { handleLogout } from '../utils/logout'
+import { handleLogout } from '../utils/handle_logout'
 
 export const Navbar = () => {
   return (
@@ -18,6 +18,11 @@ export const Navbar = () => {
         <li>
           <Link href="/files" className="text-blue-800 hover:underline">
             Upload a file
+          </Link>
+        </li>
+        <li>
+          <Link href="/files" className="text-blue-800 hover:underline">
+            View my files
           </Link>
         </li>
         <li>
