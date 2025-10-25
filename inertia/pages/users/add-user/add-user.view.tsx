@@ -1,7 +1,6 @@
-import { Head, Link } from '@inertiajs/react'
+import { Head } from '@inertiajs/react'
 import { Alert } from '~/lib/components/alert.component'
 import { Label } from '~/lib/components/label.component'
-import { Navbar } from '~/lib/components/navbar.component'
 
 export interface AddUserPageViewProps {
   formData: {

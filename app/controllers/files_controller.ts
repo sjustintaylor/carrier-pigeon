@@ -7,7 +7,7 @@ export default class FilesController {
   async index({}: HttpContext) {}
 
   /**
-   * Display form to create a new record
+   * Display form to upload a new file
    */
   async create({}: HttpContext) {}
 
@@ -17,19 +17,9 @@ export default class FilesController {
   async store({ request }: HttpContext) {}
 
   /**
-   * Show individual record
+   * Download an individual file
    */
   async show({ params }: HttpContext) {}
-
-  /**
-   * Edit individual record
-   */
-  async edit({ params }: HttpContext) {}
-
-  /**
-   * Handle form submission for the edit action
-   */
-  async update({ params, request }: HttpContext) {}
 
   /**
    * Delete record
