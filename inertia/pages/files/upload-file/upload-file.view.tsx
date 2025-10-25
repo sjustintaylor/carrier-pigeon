@@ -50,6 +50,7 @@ export function UploadFileView({
             </section>
           )}
         </div>
+        <Alert message="The uploaded file will expire in 7 days" intent="SUCCESS" />
         {isSubmitting && <progress value={progress} />}
         <button type="submit" className="btn" disabled={isSubmitting}>
           {isSubmitting ? 'Uploading...' : 'Upload'}
