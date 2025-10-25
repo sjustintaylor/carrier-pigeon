@@ -8,6 +8,7 @@ export interface UploadFilePageViewProps {
   handleSubmit: (e: React.FormEvent) => void
   isSubmitting: boolean
   file: File | null
+  error: string
 }
 
 export function UploadFileView({
@@ -15,6 +16,7 @@ export function UploadFileView({
   isSubmitting,
   updateFile,
   file,
+  error,
 }: UploadFilePageViewProps) {
   return (
     <>
@@ -35,6 +37,7 @@ export function UploadFileView({
               }
             }}
           />
+          {error && <Alert intent="ERROR" message={error} />}
           {file && (
             <section>
               File details:

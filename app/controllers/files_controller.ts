@@ -21,7 +21,9 @@ export default class FilesController {
   /**
    * Handle form submission for the create action
    */
-  async store({ request }: HttpContext) {}
+  async store({ request }: HttpContext) {
+    // TODO: Return a presigned upload url for the file
+  }
 
   /**
    * Download an individual file
