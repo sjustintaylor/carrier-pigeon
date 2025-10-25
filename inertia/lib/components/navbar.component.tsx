@@ -16,7 +16,7 @@ export const Navbar = () => {
           </Link>
         </li>
         <li>
-          <Link href="/files" className="text-blue-800 hover:underline">
+          <Link href="/files/create" className="text-blue-800 hover:underline">
             Upload a file
           </Link>
         </li>

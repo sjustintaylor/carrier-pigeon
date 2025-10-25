@@ -1,56 +1,23 @@
 import { useState, useCallback } from 'react'
-import { router } from '@inertiajs/react'
+
 import { UploadFilePageViewProps } from './upload-file.view'
 
-interface UploadFileFormData extends Record<string, string> {
-  username: string
-  password: string
-}
-
-interface UseUploadFilePageProps {
-  errors: Record<string, string>
-  values: Partial<UploadFileFormData>
-}
-
-export function useUploadFilePage({
-  errors,
-  values,
-}: UseUploadFilePageProps): UploadFilePageViewProps {
-  const [formData, setFormData] = useState<UploadFileFormData>({
-    username: values.username_input || '',
-    password: values.password || '',
-  })
-
+export function useUploadFilePage(): UploadFilePageViewProps {
+  const [file, setFile] = useState<File | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const updateField = useCallback((field: keyof UploadFileFormData, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }))
+  const updateFile = useCallback((target: File) => {
+    setFile(target)
   }, [])
 
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault()
-
-      if (isSubmitting) return
-
-      setIsSubmitting(true)
-
-      router.post('/users', formData, {
-        preserveScroll: true,
-        onFinish: () => setIsSubmitting(false),
-      })
-    },
-    [formData, isSubmitting]
-  )
+  const handleSubmit = useCallback(async () => {
+    // TODO
+  }, [])
 
   return {
-    formData,
-    updateField,
-    handleSubmit,
+    file,
     isSubmitting,
-    errors,
+    updateFile,
+    handleSubmit,
   }
 }

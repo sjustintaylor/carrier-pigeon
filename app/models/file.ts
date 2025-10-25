@@ -11,6 +11,9 @@ export default class File extends BaseModel {
   declare storageIdentifier: string
 
   @column()
+  declare filename: string
+
+  @column()
   declare contentType: string
 
   @column()

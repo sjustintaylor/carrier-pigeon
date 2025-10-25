@@ -9,7 +9,14 @@ export default class FilesController {
   /**
    * Display form to upload a new file
    */
-  async create({}: HttpContext) {}
+  async create({ inertia, session }: HttpContext) {
+    return inertia.render('files/upload-file/upload-file.page', {
+      flash: {
+        success: session.flashMessages.get('success'),
+        error: session.flashMessages.get('error'),
+      },
+    })
+  }
 
   /**
    * Handle form submission for the create action

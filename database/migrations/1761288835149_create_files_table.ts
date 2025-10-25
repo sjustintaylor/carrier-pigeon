@@ -9,6 +9,7 @@ export default class extends BaseSchema {
 
       table.string('storage_identifier').notNullable()
       table.string('content_type').notNullable()
+      table.string('filename').notNullable()
 
       table.timestamp('created_at')
       table.timestamp('updated_at')
