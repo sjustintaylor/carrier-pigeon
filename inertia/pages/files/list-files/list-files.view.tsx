@@ -4,7 +4,7 @@ import { FileRecord } from './list-files.types'
 export interface ListFilesPageViewProps {
   values: FileRecord[]
   isDeleting: boolean
-  handleDelete: (id: number) => void
+  handleDelete: (id: string) => void
 }
 
 const DeleteIcon = () => {
@@ -35,13 +35,16 @@ export function ListFilesView({ values, handleDelete, isDeleting }: ListFilesPag
         <h2>Your files</h2>
       </header>
       <section>
+        {values.length === 0 && <h3>You have no files</h3>}
         <ul>
           {values.map((el) => {
             return (
               <li key={el.id} className="flex items-center justify-between">
                 <div className="flex-col items-start justify-start">
-                  <Link href={`/downloads/${el.friendlyIdentifier}`}>{el.friendlyIdentifier}</Link>
-                  <span className="italic text-sm">Expires on: {el.expiresOn.toDateString()}</span>
+                  <Link href={`/downloads/${el.id}`}>{el.id}</Link>
+                  <span className="italic text-sm">
+                    Expires on: {new Date(el.expiresOn).toDateString()}
+                  </span>
                 </div>
                 <button
                   className="btn-sm-icon-destructive"

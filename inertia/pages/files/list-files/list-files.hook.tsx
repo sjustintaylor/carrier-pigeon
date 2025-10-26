@@ -6,7 +6,7 @@ export function useListFilesPage(): Pick<ListFilesPageViewProps, 'handleDelete' 
   const [isDeleting, setIsDeleting] = useState(false)
 
   const handleDelete = useCallback(
-    (id: number) => {
+    (id: string) => {
       if (isDeleting) {
         return
       }

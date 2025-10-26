@@ -4,6 +4,7 @@ import drive from '@adonisjs/drive/services/main'
 import { getFriendlyId } from '../utils/get_friendly_id.js'
 import env from '#start/env'
 import FileRecord from '#models/file_record'
+import { DateTime, Duration } from 'luxon'
 
 const disk = drive.use()
 
@@ -11,7 +12,35 @@ export default class FilesController {
   /**
    * Display a list of files
    */
-  async index({}: HttpContext) {}
+  async index({ auth, inertia, session }: HttpContext) {
+    const user = await auth.authenticate()
+    const duration = Duration.fromObject({ seconds: env.get('FILE_EXPIRY_SECONDS') })
+    const cutoff = DateTime.now().minus(duration)
+    const expiredFiles = await FileRecord.query()
+      .where('created_at', '<', cutoff.toSQLDate())
+      .andWhere('user_id', user.id)
+
+    const activeFiles = await FileRecord.query()
+      .where('created_at', '>', cutoff.toSQLDate())
+      .andWhere('user_id', user.id)
+
+    for (const file of expiredFiles) {
+      await file.delete()
+    }
+
+    return inertia.render('files/list-files/list-files.page', {
+      flash: {
+        success: session.flashMessages.get('success'),
+        error: session.flashMessages.get('error'),
+      },
+      values: activeFiles.map((el) => {
+        return {
+          id: el.storageIdentifier,
+          expiresOn: el.createdAt.plus(duration).toJSDate(),
+        }
+      }),
+    })
+  }
 
   /**
    * Display form to upload a new file
@@ -50,10 +79,30 @@ export default class FilesController {
   /**
    * Download an individual file
    */
-  async show({ params }: HttpContext) {}
+  async show({ params, response }: HttpContext) {
+    const file = await FileRecord.findByOrFail({ storageIdentifier: params.id })
+
+    const duration = file.createdAt.diff(DateTime.now()).as('seconds')
+
+    if (duration > env.get('FILE_EXPIRY_SECONDS')) {
+      await file.delete()
+      return response.notFound()
+    }
+
+    const downloadUrl = await disk.getSignedUrl(file.storageIdentifier, {
+      contentType: file.contentType,
+      expiresIn: '30 mins',
+    })
+
+    return response.redirect(downloadUrl)
+  }
 
   /**
    * Delete record
    */
-  async destroy({ params }: HttpContext) {}
+  async destroy({ params, response }: HttpContext) {
+    const file = await FileRecord.findByOrFail({ storageIdentifier: params.id })
+    await file.delete()
+    return response.redirect().toRoute('files.index')
+  }
 }
