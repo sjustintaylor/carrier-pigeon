@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import ky from 'ky'
 import { UploadFilePageViewProps } from './upload-file.view'
+import { router } from '@inertiajs/core'
 
 export function useUploadFilePage(): UploadFilePageViewProps {
   const [file, setFile] = useState<File | null>(null)
@@ -23,8 +24,16 @@ export function useUploadFilePage(): UploadFilePageViewProps {
     formData.append('file', file)
 
     try {
-      // TODO: Get an upload URL
-      ky.post('', {
+      const { url } = await ky
+        .post('/files', {
+          json: {
+            contentType: file.type,
+            filename: file.name,
+          },
+        })
+        .json<{ url: string }>()
+      console.log(url)
+      await ky.post(url, {
         body: formData,
         onDownloadProgress: (progress) => {
           setProgress(progress.percent)

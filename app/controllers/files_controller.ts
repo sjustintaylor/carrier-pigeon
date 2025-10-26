@@ -69,7 +69,7 @@ export default class FilesController {
       userId: user.id,
     })
 
-    return response.json({
+    return response.send({
       url: disk.getSignedUploadUrl(storageIdentifier, {
         contentType,
         expiresIn: env.get('FILE_EXPIRY_SECONDS'),
@@ -93,12 +93,9 @@ export default class FilesController {
     const url = await disk.getSignedUrl(file.storageIdentifier, {
       contentType: file.contentType,
       expiresIn: '30 mins',
+      contentDisposition: `attachment; filename="${file.filename}"`,
     })
-
-    return inertia.render('files/download-file/download-file.page', {
-      url,
-      filename: file.filename,
-    })
+    return inertia.location(url)
   }
 
   /**
