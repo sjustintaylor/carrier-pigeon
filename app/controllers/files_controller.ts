@@ -37,6 +37,7 @@ export default class FilesController {
         return {
           id: el.storageIdentifier,
           expiresOn: el.createdAt.plus(duration).toJSDate(),
+          filename: el.filename,
         }
       }),
     })
@@ -79,7 +80,7 @@ export default class FilesController {
   /**
    * Download an individual file
    */
-  async show({ params, response }: HttpContext) {
+  async show({ params, response, inertia }: HttpContext) {
     const file = await FileRecord.findByOrFail({ storageIdentifier: params.id })
 
     const duration = file.createdAt.diff(DateTime.now()).as('seconds')
@@ -89,12 +90,15 @@ export default class FilesController {
       return response.notFound()
     }
 
-    const downloadUrl = await disk.getSignedUrl(file.storageIdentifier, {
+    const url = await disk.getSignedUrl(file.storageIdentifier, {
       contentType: file.contentType,
       expiresIn: '30 mins',
     })
 
-    return response.redirect(downloadUrl)
+    return inertia.render('files/download-file/download-file.page', {
+      url,
+      filename: file.filename,
+    })
   }
 
   /**

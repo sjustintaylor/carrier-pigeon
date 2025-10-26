@@ -41,10 +41,12 @@ export function ListFilesView({ values, handleDelete, isDeleting }: ListFilesPag
             return (
               <li key={el.id} className="flex items-center justify-between">
                 <div className="flex-col items-start justify-start">
-                  <Link href={`/downloads/${el.id}`}>{el.id}</Link>
-                  <span className="italic text-sm">
+                  <Link href={`/downloads/${el.id}`} className="text-blue-800 hover:underline">
+                    {el.filename}
+                  </Link>
+                  <div className="italic text-sm">
                     Expires on: {new Date(el.expiresOn).toDateString()}
-                  </span>
+                  </div>
                 </div>
                 <button
                   className="btn-sm-icon-destructive"
