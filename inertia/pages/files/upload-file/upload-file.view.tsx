@@ -1,14 +1,15 @@
-import { Head } from '@inertiajs/react'
+import { Head, Link } from '@inertiajs/react'
 import { Alert } from '~/lib/components/alert.component'
 import { Label } from '~/lib/components/label.component'
 
 export interface UploadFilePageViewProps {
   updateFile: (target: File) => void
-  handleSubmit: (e: React.FormEvent) => void
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   isSubmitting: boolean
   file: File | null
   error: string
   progress: number
+  downloadUrl: string
 }
 
 export function UploadFileView({
@@ -18,6 +19,7 @@ export function UploadFileView({
   file,
   error,
   progress,
+  downloadUrl,
 }: UploadFilePageViewProps) {
   return (
     <>
@@ -50,7 +52,14 @@ export function UploadFileView({
             </section>
           )}
         </div>
-        <Alert message="The uploaded file will expire in 7 days" intent="SUCCESS" />
+        {file && <Alert message="The uploaded file will expire in 7 days" intent="SUCCESS" />}
+        {downloadUrl && (
+          <div>
+            <Link href={downloadUrl} className="text-blue-800 hover:underline my-4">
+              The download link for your file
+            </Link>
+          </div>
+        )}
         {isSubmitting && <progress value={progress} />}
         <button type="submit" className="btn" disabled={isSubmitting}>
           {isSubmitting ? 'Uploading...' : 'Upload'}

@@ -68,12 +68,13 @@ export default class FilesController {
       storageIdentifier,
       userId: user.id,
     })
-
+    const url = await disk.getSignedUploadUrl(storageIdentifier, {
+      contentType,
+      expiresIn: env.get('FILE_EXPIRY_SECONDS'),
+    })
     return response.send({
-      url: disk.getSignedUploadUrl(storageIdentifier, {
-        contentType,
-        expiresIn: env.get('FILE_EXPIRY_SECONDS'),
-      }),
+      url,
+      id: storageIdentifier,
     })
   }
 
