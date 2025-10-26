@@ -13,7 +13,7 @@ interface AuthLayoutProps extends PropsWithChildren {
 export function AuthLayout({ children, flash }: AuthLayoutProps) {
   return (
     <>
-      <div className="bg-muted flex min-h-svh w-full flex-col bg-[url(/img/full-bloom.png)] bg-repeat">
+      <div className="flex min-h-svh w-full flex-col bg-[url(/img/full-bloom.png)] bg-repeat">
         {flash?.error && (
           <div className="mb-6">
             <Alert intent="ERROR" title="" message={flash.error} />
@@ -26,7 +26,7 @@ export function AuthLayout({ children, flash }: AuthLayoutProps) {
           </div>
         )}
 
-        <div className="card mx-auto mt-20 max-w-3xl px-6">
+        <div className="card mx-auto mt-20 max-w-3xl px-6 bg-muted">
           <Navbar />
 
           {children}
